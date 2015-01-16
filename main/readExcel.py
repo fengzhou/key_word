@@ -4,7 +4,6 @@ Created on 2015年1月16日
 '''
 import xlrd
 import sys
-from selenium import webdriver
 sys.path.append('..')
 
 path = r'..\data\data.xls'
@@ -36,7 +35,7 @@ def getKeyWord_Object_value(casename,steps):
     print zip(keyword,obj)
 
 def action(steps):
-    pass
+    print 'hello world'
     
     
 
