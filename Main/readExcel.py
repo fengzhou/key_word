@@ -229,9 +229,10 @@ class MyAssert(Exception):
 class MyTest(unittest.TestCase):
     
     def setUp(self):
+        
         self.driver = webdriver.Chrome()
         self.ks = keywordswitch(self.driver)
-    
+        
     def action(self,casestep):
         '''测试用例
             @param casestep: 测试用例执行步骤
@@ -247,8 +248,7 @@ class MyTest(unittest.TestCase):
         return func
     
     def tearDown(self):
-        print 'END'
-
+        pass
 
 def __AddCase():
     '''动态添加测试方法'''
@@ -257,19 +257,19 @@ def __AddCase():
     for casename in casenames:
         casestep = data.getCaseStep(casename).get(casename)
         setattr(MyTest,'test name : %s' %casename, MyTest.getTestFunc(casestep))
-
+ 
 __AddCase()    
 
 if __name__ == '__main__':
-#     test_support.run_unittest(MyTest)
-
+    
     testunit = unittest.TestSuite()
-    testunit.addTest(MyTest('action'))
+    testunit.addTest(unittest.makeSuite(MyTest))
     now_time = time.strftime("%Y-%m-%d-%H_%M_%S",time.localtime())
     filename = '..\\report\\'+now_time+'result.html'
     fp = open(filename,'wb')
     runner = HTMLTestRunner.HTMLTestRunner(stream=fp,
                                            title = u'MyAutoTest',
                                            description=u'The Result')       
-    runner.run(testunit)
-        
+    runner.run(testunit)    
+    fp.close()
+    
